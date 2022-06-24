@@ -2,17 +2,12 @@ const mongoose = require("mongoose");
 const SubjectSchame = mongoose.Schema({
   department: {type: String, /* require: true */},
   academic_activity: {type: String, /* require: true */},
-  activity_code: {type: Number, /* require: true */},
+  activity_code: {type: String,unique: true, require: true},
   number_credits: {type: Number, /* require: true */},
-  piaa_version: {type: Number, /* require: true */},
+  piaa_version: {type: Number, /* require: true */ },
   piaa_status: {type: Boolean, /* require: true */},
-  file_number: {
-    type: Object,
-    /* require: true */
-    month_file: { type: Number, /* require: true */ },
-    year_file: { type: Number, /* require: true */ },
-  },
-  file_date:{type: Date,/* require:true */},
+  file_number: {type: String, /* require: true */},
+  file_date:{type: String,/* require:true */},
   theory_hours: {type: Number, /* require: true */},
   offsite_hours: {type: Number, /* require: true */},
   hoursnon_attendance_reprovals: {type: Number, /* require: true */},
