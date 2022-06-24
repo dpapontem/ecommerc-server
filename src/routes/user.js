@@ -7,6 +7,8 @@ const md_upload_avatar = multipart({ uploadDir: "./assets/avatar" });
 const api = express.Router();
 
 api.post("/signup", UserController.signUp);
+api.get("/enviarMensaje/:numero", UserController.enviarMensaje);
+api.get("/enviarMail/:mail", UserController.enviarMail);
 api.post("/signin", UserController.signIn);
 api.get("/getavatar/:avatarName", UserController.getAvatar);
 api.get(

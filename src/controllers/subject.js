@@ -147,6 +147,17 @@ const getActiveSubjects = (req, res) => {
     });
 };
 
+// ver los PIIA´s inactivos activos
+
+const getInactiveSubjects = (req, res) => {
+    const activeSubjects = req.query;
+    Subject.find({ piaa_status: false }).then((subjects) => {
+      !subjects
+        ? res.status(404).send({ message: "No se ha encontrado ninguna asignatura" })
+        : res.status(200).send({ subjects });
+    });
+};
+
 // activar o desactivar
 
 const activateSubjects = (req, res) => {
@@ -173,5 +184,6 @@ module.exports={
     deletSubject,
     updateSubjects,
     getActiveSubjects,
-    activateSubjects
+    activateSubjects,
+    getInactiveSubjects
 };

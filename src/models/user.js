@@ -16,6 +16,9 @@ const UserSchame = mongoose.Schema({
     type: String,
     require: true,
   },
+  celular:{
+    type:String,
+  },
   role: {
     type: String,
     /* require: true, */

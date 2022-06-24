@@ -1,12 +1,19 @@
 const bcrypt = require("bcrypt-nodejs");
 const User = require("../models/user");
 const jwt = require("../services/jwt");
+const express = require('express');
+const msm = require('./twilio');
+const { SmsCommandContext } = require("twilio/lib/rest/supersim/v1/smsCommand");
+
+
 
 const signUp = (req, res) => {
+  
   const user = new User();
-  const { name_user, lastname, email, password, repeatPassword } = req.body;
+  const { name_user, lastname, email, password, repeatPassword, celular } = req.body;
   user.name_user = name_user;
   user.lastname = lastname;
+  user.celular = celular;
   user.email = email.toLowerCase();
   /* Por default almacenamos el rol y si es un usuario activo o no */
   user.role = "admin";
@@ -33,6 +40,7 @@ const signUp = (req, res) => {
               if (!userStored) {
                 res.status(404).send({ message: "Error al crear el usuario." });
               } else {
+                
                 res.status(200).send({ user: userStored });
               }
             }
@@ -243,6 +251,20 @@ function signUpAdmin(req, res) {
       });
 }
 
+function enviarMensaje(req, res){
+  const { numero } = req.params;
+  msm.enviarMsM(numero)
+  res.send({message:"Mensaje Enviado"})
+
+}
+
+function enviarMail(req, res){
+  const { mail } = req.params;
+  msm.enviarMail(mail)
+  res.send({message:"Mensaje Enviado"})
+
+}
+
 module.exports = {
   signUp,
   signIn,
@@ -254,4 +276,6 @@ module.exports = {
   activateUser,
   deleteUser,
   signUpAdmin,
+  enviarMensaje,
+  enviarMail
 };
